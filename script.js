@@ -2,24 +2,26 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   e.preventDefault();
   const password = document.getElementById("password").value;
 
-  try {
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ key: password })
-    });
+  
+  const keys = [
+    { key: "1", accessLevel: 1 },
+    { key: "2", accessLevel: 2 },
+    { key: "3", accessLevel: 3 },
+    { key: "4", accessLevel: 4 },
+    { key: "5", accessLevel: 5 }
+  ];
 
-    if (!response.ok) throw new Error("Chave inválida");
+  const userKey = keys.find(k => k.key === password);
 
-    const data = await response.json();
-    localStorage.setItem("accessLevel", data.accessLevel);
+  if (userKey) {
+    localStorage.setItem("accessLevel", userKey.accessLevel);
     window.location.href = "home.html";
-  } catch (error) {
+  } else {
     alert("Acesso negado. Verifique sua chave.");
   }
 });
 
-// Lógica de exibição dos documentos
+
 const docContainer = document.getElementById("doc-container");
 if (docContainer) {
   const accessLevel = parseInt(localStorage.getItem("accessLevel"));
@@ -29,7 +31,7 @@ if (docContainer) {
     window.location.href = "index.html";
   }
 
-  // Lista de documentos
+  
   const docs = [
     {
       titulo: "Introdução Agentes",
@@ -40,13 +42,13 @@ if (docContainer) {
     {
       titulo: "Plano Estratégico",
       descricao: "Documento com as estratégias futuras.",
-      link: "https://docs.google.com/document/d/EXAMPLE2",
+      link: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
       nivel: 3
     },
     {
       titulo: "Dados Confidenciais",
       descricao: "Informações sensíveis e restritas.",
-      link: "https://docs.google.com/document/d/EXAMPLE3",
+      link: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
       nivel: 4
     }
   ];
