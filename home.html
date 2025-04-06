@@ -152,7 +152,7 @@
 
     <div id="content"></div>
 
-    <a href="#" id="logout">⛔ Sair</a>
+    <a href="#" id="logout"> Sair</a>
   </div>
 
   <script>
@@ -163,7 +163,7 @@
       const idDisplay = document.getElementById("identificacao");
       const logoutBtn = document.getElementById("logout");
 
-      // Aguarda 5 segundos e exibe o conteúdo principal
+     
       setTimeout(() => {
         loadingScreen.style.display = "none";
         mainContent.style.display = "block";
@@ -175,10 +175,10 @@
           return;
         }
 
-        // Saudação e identificação
+        
         idDisplay.textContent = `Bem-vindo, Agente. Nível de Identificação: ${level}`;
 
-        // Categorias por nível
+        
         if (level >= 1) {
           const docs = document.createElement("div");
           docs.className = "category";
