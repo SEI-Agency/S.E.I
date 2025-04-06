@@ -28,11 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value;
-
       const encryptedPassword = multiEncrypt(password);
 
       try {
-        const snapshot = await db.collection("usuarios").where("usuario", "==", username).get();
+        const snapshot = await db
+          .collection("usuarios_aprovacao")
+          .where("discord", "==", username)
+          .get();
 
         if (snapshot.empty) {
           alert("Usuário não encontrado.");
@@ -53,13 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Salva o nível de acesso e redireciona
-        localStorage.setItem("accessLevel", data.nivel_acesso);
-        localStorage.setItem("usuario", data.usuario);
+        localStorage.setItem("accessLevel", data.nivel);
+        localStorage.setItem("usuario", data.discord);
 
         await db.collection("registros_uso").add({
-          usuario: data.usuario,
+          usuario: data.discord,
           horario_uso: new Date(),
-          nivel_acesso: data.nivel_acesso
+          nivel_acesso: data.nivel
         });
 
         window.location.href = "home.html";
