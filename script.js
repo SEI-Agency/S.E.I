@@ -31,10 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const encryptedPassword = multiEncrypt(password);
 
       try {
-        const snapshot = await db
-          .collection("usuarios_aprovacao")
-          .where("discord", "==", username)
-          .get();
+    const snapshot = await db.collection("usuarios_aprovacao").where("discord", "==", username).get();
+
 
         if (snapshot.empty) {
           alert("Usuário não encontrado.");
