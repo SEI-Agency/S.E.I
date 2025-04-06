@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (userKey) {
         localStorage.setItem("accessLevel", userKey.accessLevel);
-        window.location.href = "documents.html";
+        window.location.href = "home.html"; // Redireciona para home.html ao invés de documents.html
       } else {
         alert("Acesso negado. Verifique sua chave.");
       }
