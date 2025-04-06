@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+ 
+  async function encrypt4x(password) {
+    const encoder = new TextEncoder();
+    let data = encoder.encode(password);
+
+    for (let i = 0; i < 4; i++) {
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      data = new Uint8Array(hashBuffer);
+      data = new TextEncoder().encode(btoa(String.fromCharCode(...data)));
+    }
+
+    return btoa(String.fromCharCode(...data));
+  }
+
   // === LOGIN (index.html) ===
   const loginForm = document.getElementById("loginForm");
 
@@ -8,25 +22,26 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
 
       const keys = [
-        { key: "1", accessLevel: 1 },
-        { key: "2", accessLevel: 2 },
-        { key: "3", accessLevel: 3 },
-        { key: "4", accessLevel: 4 },
-        { key: "5", accessLevel: 5 }
+        { key: "Z33uNHew9k/gm0MXQaMx6BMdo5/Uyudd5htbT7kN9es=", accessLevel: 1 }, // 3xTr#9@pLz!Q
+        { key: "e+/ywh2mvunRD1nSS/37pcH3jxuK6Nm/bD01ATA7i8Q=", accessLevel: 2 }, // R7g$1*aY8w%Fn
+        { key: "W9KvQqcYpDjjMhCWRdZzqUwiM5usEo2qmf781007nqY=", accessLevel: 3 }, // nZ!7@Gq$2pLt#
+        { key: "9Wf6qT25IZY/Eh6a1aPEgGE2F01Y64pGYjLa4KkzsCI=", accessLevel: 4 }, // vP#4r@Ls!q8&M
+        { key: "c+EvOT7Wfxr4FREX6tIst8nowNPVYFKS3t1dIm/gNeQ=", accessLevel: 5 }  // L#p93!a@RtZ&9
       ];
 
-      const userKey = keys.find(k => k.key === password);
+      const encrypted = await encrypt4x(password);
+      const userKey = keys.find(k => k.key === encrypted);
 
       if (userKey) {
         localStorage.setItem("accessLevel", userKey.accessLevel);
-        window.location.href = "home.html"; // Redireciona para home.html ao invés de documents.html
+        window.location.href = "home.html";
       } else {
         alert("Acesso negado. Verifique sua chave.");
       }
     });
   }
 
-  // === DOCUMENTOS (documents.html) ===
+  // === DOCUMENTOS (documentos.html) ===
   const docContainer = document.getElementById("doc-container");
 
   if (docContainer) {
