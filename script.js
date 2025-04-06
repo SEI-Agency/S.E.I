@@ -6,6 +6,7 @@ loginForm.addEventListener("submit", async function (e) {
 
   try {
     const snapshot = await db.collection("usuarios_aprovacao").where("discord", "==", username).get();
+    onst snapshot = await db.collection("usuarios_aprovacao").where("senha", "==", password).get();
 
     if (snapshot.empty) {
       alert("Usuário não encontrado.");
