@@ -76,16 +76,13 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <script>
     const firebaseConfig = {
-   const firebaseConfig = {
-  apiKey: "AIzaSyAenLhQLq4u6MWBR9xXESm4N7mO0LR5_dY",
-  authDomain: "database---sei.firebaseapp.com",
-  projectId: "database---sei",
-  storageBucket: "database---sei.appspot.com",
-  messagingSenderId: "926818948182",
-  appId: "1:926818948182:web:cc3d207aec8a29b8d7d7f7",
-  measurementId: "G-FRLP6JNXT3"
-};
-
+      apiKey: "AIzaSyAenLhQLq4u6MWBR9xXESm4N7mO0LR5_dY",
+      authDomain: "database---sei.firebaseapp.com",
+      projectId: "database---sei",
+      storageBucket: "database---sei.appspot.com",
+      messagingSenderId: "926818948182",
+      appId: "1:926818948182:web:cc3d207aec8a29b8d7d7f7",
+      measurementId: "G-FRLP6JNXT3"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -121,15 +118,14 @@
       const nivel = getNivel(cargo);
 
       try {
-   await db.collection("usuarios_aprovacao").add({
-  usuario: discord, // troca a chave
-  senha,
-  cargo,
-  nivel_acesso: nivel,
-  aprovado: false,
-  criado_em: new Date()
-});
-
+        await db.collection("usuarios_aprovacao").add({
+          usuario: discord,
+          senha,
+          cargo,
+          nivel_acesso: nivel,
+          aprovado: false,
+          criado_em: new Date()
+        });
 
         alert("Solicitação enviada! Aguarde aprovação.");
       } catch (e) {
