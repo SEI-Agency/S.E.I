@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Criar Perfil | Agência S.E.I.</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #101010, #1c1c1c);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #00ccff;
+    }
+
+    .form-box {
+      background-color: #111;
+      padding: 30px;
+      border-radius: 10px;
+      border: 2px solid #00ccff;
+      box-shadow: 0 0 15px #00ccff40;
+      width: 300px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #007799;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005566;
+    }
+  </style>
+</head>
+<body>
+  <h1>Solicitar Cadastro</h1>
+  <div class="form-box">
+    <input type="text" id="discord" placeholder="Usuário do Discord (ex: user#0001)" required />
+    <input type="password" id="senha" placeholder="Senha" required />
+    <select id="cargo" required>
+      <option value="">Selecione o cargo</option>
+      <option value="Estagiário">Estagiário</option>
+      <option value="Agente">Agente</option>
+      <option value="Agente Especialista">Agente Especialista</option>
+      <option disabled>───────────────</option>
+      <option value="Conselho Administrativo">Conselho Administrativo</option>
+      <option disabled>───────────────</option>
+      <option value="Vice-Diretor">Vice-Diretor</option>
+      <option value="Diretor-Geral">Diretor-Geral</option>
+      <option value="04">04</option>
+      <option value="03">03</option>
+      <option value="02">02</option>
+      <option value="01">01</option>
+    </select>
+    <button onclick="enviarSolicitacao()">Solicitar Acesso</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAenLhQLq4u6MWBR9xXESm4N7mO0LR5_dY",
+      authDomain: "database---sei.firebaseapp.com",
+      projectId: "database---sei",
+      storageBucket: "database---sei.firebasestorage.app",
+      messagingSenderId: "926818948182",
+      appId: "1:926818948182:web:cc3d207aec8a29b8d7d7f7",
+      measurementId: "G-FRLP6JNXT3"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function getNivel(cargo) {
+      switch (cargo) {
+        case "Estagiário": return 1;
+        case "Agente": return 2;
+        case "Agente Especialista": return 3;
+        case "Conselho Administrativo": return 4;
+        case "Vice-Diretor":
+        case "Diretor-Geral":
+        case "04":
+        case "03":
+        case "02":
+        case "01":
+          return 5;
+        default: return 1;
+      }
+    }
+
+    async function enviarSolicitacao() {
+      const discord = document.getElementById("discord").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+      const cargo = document.getElementById("cargo").value;
+
+      if (!discord || !senha || !cargo) {
+        alert("Preencha todos os campos.");
+        return;
+      }
+
+      const nivel = getNivel(cargo);
+
+      try {
+        await db.collection("usuarios_aprovacao").add({
+          discord,
+          senha,
+          cargo,
+          nivel,
+          aprovado: false,
+          criado_em: new Date()
+        });
+
+        alert("Solicitação enviada! Aguarde aprovação.");
+      } catch (e) {
+        console.error("Erro ao enviar:", e);
+        alert("Erro ao enviar solicitação.");
+      }
+    }
+  </script>
+</body>
+</html>
