@@ -2,31 +2,72 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>Documentos</title>
+  <title>Documentos | S.E.I.</title>
   <style>
     body {
-      background: #0f0f0f;
-      color: white;
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #e0e0e0;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 40px;
     }
+
+    h1 {
+      color: #ff4d4d;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #ff000033;
+      letter-spacing: 2px;
+    }
+
     .card {
-      background: #1a1a1a;
-      border-radius: 8px;
+      background: #121212;
+      border: 2px solid #be3207;
+      border-left: 6px solid #be3207;
+      border-radius: 10px;
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 15px rgba(190, 50, 7, 0.2);
+      transition: transform 0.2s ease;
     }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(190, 50, 7, 0.4);
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #ff4d4d;
+    }
+
+    p {
+      color: #ccc;
+    }
+
     a {
       color: #be3207;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #666;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
-  <h1>Central de Documentos</h1>
+  <h1>Central de Documentos S.E.I.</h1>
 
-  <div id="doc-container">
-   
-  </div>
+  <div id="doc-container"></div>
+
+  <div class="footer">Acesso restrito. Monitoramento ativo.</div>
 
   <script src="script.js"></script>
 </body>
