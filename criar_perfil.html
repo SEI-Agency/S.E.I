@@ -118,14 +118,15 @@
       const nivel = getNivel(cargo);
 
       try {
-        await db.collection("usuarios_aprovacao").add({
-          discord,
-          senha,
-          cargo,
-          nivel,
-          aprovado: false,
-          criado_em: new Date()
-        });
+   await db.collection("usuarios_aprovacao").add({
+  usuario: discord, // troca a chave
+  senha,
+  cargo,
+  nivel_acesso: nivel,
+  aprovado: false,
+  criado_em: new Date()
+});
+
 
         alert("Solicitação enviada! Aguarde aprovação.");
       } catch (e) {
