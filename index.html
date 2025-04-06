@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Autenticação | Agência S.E.I.</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      color: #ff4d4d;
+      text-shadow: 0 0 10px #ff000033;
+    }
+
+    .login-box {
+      background: #111;
+      border: 2px solid #ff0000;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #ff000030;
+      animation: fadeIn 1s ease-in-out;
+      width: 300px;
+      text-align: center;
+    }
+
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #222;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 95%;
+      padding: 10px;
+      background-color: #800000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #aa0000;
+    }
+
+    .footer-text {
+      margin-top: 15px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>ACESSO S.E.I.</h1>
+  <div class="login-box">
+    <form id="loginForm">
+      <input type="password" id="password" placeholder="Digite sua senha secreta" required />
+      <button type="submit">ENTRAR</button>
+    </form>
+    <div class="footer-text">Acesso restrito a agentes autorizados.</div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

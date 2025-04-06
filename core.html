@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>CORE S.E.I. - Núcleo Central</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .seguranca {
+      color: #ff4444;
+      border: 2px solid #ff0000;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+      background-color: #1a0000;
+      font-size: 1.2rem;
+    }
+
+    .bloco {
+      background: #1a1a1a;
+      margin: 20px auto;
+      padding: 20px;
+      border-left: 5px solid #ff0000;
+      border-radius: 5px;
+      max-width: 800px;
+      text-align: left;
+      box-shadow: 0 0 10px #ff000030;
+    }
+
+    .bloco h2 {
+      color: #ff4444;
+      margin-top: 0;
+    }
+
+    .bloco p {
+      margin: 8px 0;
+      color: #ccc;
+    }
+
+    .agente {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="seguranca">
+    ⚠️ Esta área é confidencial. Acesso não autorizado será rastreado e tratado como ameaça à segurança nacional.
+  </div>
+
+  <div class="bloco">
+    <h2>📋 Informações de Agentes</h2>
+    <div class="agente">
+      <p><strong>Codinome:</strong> Abogado</p>
+      <p><strong>Status:</strong> ▇▇▇▇▇</p>
+      <p><strong>Cargo:</strong> ▇▇▇</p>
+      <p><strong>▇▇:</strong> ▇▇▇▇▇▇</p>
+      </div>  
+    <div class="agente">
+      <p><strong>Codinome:</strong> Drax</p>
+      <p><strong>Status:</strong> Ativo</p>
+      <p><strong>Cargo:</strong> ▇▇-03</p>
+      <p><strong>Missão atual:</strong> ▇▇▇▇</p>
+    </div>
+    <div class="agente">
+      <p><strong>Codinome:</strong> Enéas</p>
+      <p><strong>Status:</strong> Ativo</p>
+      <p><strong>Cargo:</strong> ▇▇-02</p>
+      <p><strong>Missão Atual</strong> ▇▇▇▇▇▇</p>
+    </div>
+    <div class="agente">
+        <p><strong>Codinome:</strong> Kaua</p>
+        <p><strong>Status:</strong> Ativo</p>
+        <p><strong>Cargo:</strong> Diretor-Geral</p>
+        <p><strong>Missão Atual</strong> Recrutamento De Novos Agentes</p>
+  </div>
+  <div class="agente">
+    <p><strong>Codinome:</strong> Coutinho</p>
+    <p><strong>Status:</strong> Ativo</p>
+    <p><strong>Cargo:</strong> Secretário-Geral</p>
+    <p><strong>Missão Atual</strong> Infiltração na ▇▇▇▇▇▇ ▇▇</p>
+</div>
+<div class="bloco">
+  <h2>🗂️ Planos de Operação</h2>
+  <p><strong>Operação Lava Jato:</strong> Derrubar o RHX</p>
+  <hr>
+  <p><strong>Projeto DarkNight:</strong> Expor e punir a company 743</p>
+  <hr>
+  <p><strong>Operação Dark Lord:</strong> Infiltração Completa da S.E.I no governo</p>
+</div>
+
+  <script>
+    const accessLevel = parseInt(localStorage.getItem("accessLevel"));
+    if (!accessLevel || accessLevel < 4) {
+      alert("Acesso restrito ao núcleo principal.");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
