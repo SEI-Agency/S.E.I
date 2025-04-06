@@ -34,10 +34,10 @@
       text-align: center;
     }
 
-    input[type="password"] {
+    input {
       width: 90%;
       padding: 10px;
-      margin: 15px 0;
+      margin: 10px 0;
       border: none;
       border-radius: 5px;
       background-color: #222;
@@ -55,7 +55,6 @@
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-bottom: 10px;
     }
 
     button:hover {
@@ -63,13 +62,17 @@
     }
 
     .footer-text {
-      margin-top: 15px;
+      margin-top: 10px;
       font-size: 0.8rem;
       color: #777;
     }
 
-    .secondary-btn {
-      background-color: #333;
+    a {
+      color: #ff4d4d;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      display: block;
+      margin-top: 10px;
     }
 
     @keyframes fadeIn {
@@ -85,60 +88,20 @@
   </style>
 </head>
 <body>
-  <h1>ACESSO S.E.I.</h1>
+  <h1>LOGIN - S.E.I.</h1>
   <div class="login-box">
-    <form id="loginForm">
-      <input type="password" id="password" placeholder="Digite sua senha secreta" required />
+    <form id="loginForm" autocomplete="on">
+      <input type="text" id="username" name="username" placeholder="Usuário (Discord)" required />
+      <input type="password" id="password" name="password" placeholder="Senha" required />
       <button type="submit">ENTRAR</button>
     </form>
-    <button class="secondary-btn" onclick="window.location.href='criar_perfil.html'">Criar Conta</button>
+    <a href="criar_perfil.html">Criar Conta</a>
     <div class="footer-text">Acesso restrito a agentes autorizados.</div>
   </div>
 
+  <!-- Firebase scripts -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAenLhQLq4u6MWBR9xXESm4N7mO0LR5_dY",
-      authDomain: "database---sei.firebaseapp.com",
-      projectId: "database---sei",
-      storageBucket: "database---sei.firebasestorage.app",
-      messagingSenderId: "926818948182",
-      appId: "1:926818948182:web:cc3d207aec8a29b8d7d7f7",
-      measurementId: "G-FRLP6JNXT3"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginForm = document.getElementById("loginForm");
-
-      if (loginForm) {
-        loginForm.addEventListener("submit", async function (e) {
-          e.preventDefault();
-          const password = document.getElementById("password").value;
-
-          try {
-            const querySnapshot = await db.collection("usuarios_aprovacao")
-              .where("senha", "==", password)
-              .where("aprovado", "==", true)
-              .get();
-
-            if (!querySnapshot.empty) {
-              const user = querySnapshot.docs[0].data();
-              localStorage.setItem("accessLevel", user.nivel);
-              window.location.href = "home.html";
-            } else {
-              alert("Senha inválida ou cadastro ainda não aprovado.");
-            }
-          } catch (error) {
-            console.error("Erro ao tentar login:", error);
-            alert("Erro no login. Tente novamente.");
-          }
-        });
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
