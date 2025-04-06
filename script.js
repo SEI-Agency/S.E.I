@@ -1,5 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  // Configurações do Firebase (substitua com as suas configurações)
+  const firebaseConfig = {
+   apiKey: "AIzaSyAenLhQLq4u6MWBR9xXESm4N7mO0LR5_dY",
+  authDomain: "database---sei.firebaseapp.com",
+  projectId: "database---sei",
+  storageBucket: "database---sei.firebasestorage.app",
+  messagingSenderId: "926818948182",
+  appId: "1:926818948182:web:cc3d207aec8a29b8d7d7f7",
+  measurementId: "G-FRLP6JNXT3"
+  };
+
+  // Inicialize o Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
   async function encrypt4x(password) {
     const encoder = new TextEncoder();
     let data = encoder.encode(password);
@@ -7,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 4; i++) {
       const hashBuffer = await crypto.subtle.digest("SHA-256", data);
       data = new Uint8Array(hashBuffer);
-      // Convert the hash buffer to a base64 string without extra encoding.
       data = encoder.encode(btoa(String.fromCharCode(...new Uint8Array(hashBuffer))));
     }
 
@@ -35,6 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (userKey) {
         localStorage.setItem("accessLevel", userKey.accessLevel);
+
+        // Coleta os dados
+        const enderecoIp = ""; // Obter o IP do cliente é complexo no lado do cliente
+        const horarioUso = new Date();
+
+        // Armazena os dados no Firestore
+        try {
+          await db.collection("registros_uso").add({
+            chave_hash: encrypted,
+            endereco_ip: enderecoIp,
+            horario_uso: horarioUso,
+            nivel_acesso: userKey.accessLevel,
+          });
+          console.log("Dados de uso armazenados com sucesso!");
+        } catch (error) {
+          console.error("Erro ao armazenar dados de uso:", error);
+        }
+
         window.location.href = "home.html";
       } else {
         alert("Acesso negado. Verifique sua chave.");
