@@ -25,12 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
 
+    if (!username || !password) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
     console.log("Usuário digitado:", username);
     console.log("Senha digitada:", password);
 
     try {
       const snapshot = await db.collection("usuarios_aprovacao")
-        .where("discord", "==", username)
+        .where("usuario", "==", username) // Campo corrigido aqui
         .get();
 
       if (snapshot.empty) {
@@ -51,14 +56,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Salva o nível de acesso e redireciona
-      localStorage.setItem("accessLevel", data.nivel);
-      localStorage.setItem("usuario", data.discord);
+      // Salva dados no localStorage
+      localStorage.setItem("accessLevel", data.nivel_acesso);
+      localStorage.setItem("usuario", data.usuario);
 
+      // Registra o uso
       await db.collection("registros_uso").add({
-        usuario: data.discord,
+        usuario: data.usuario,
         horario_uso: new Date(),
-        nivel_acesso: data.nivel
+        nivel_acesso: data.nivel_acesso
       });
 
       window.location.href = "home.html";
