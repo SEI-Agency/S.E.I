@@ -15,26 +15,31 @@ document.addEventListener("DOMContentLoaded", () => {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  // === LOGIN (index.html) ===
-  const loginForm = document.getElementById("loginForm");
+  
+  // === LOGIN COM APROVAÇÃO ===
+loginForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const password = document.getElementById("password").value;
 
-  if (loginForm) {
-    loginForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const password = document.getElementById("password").value;
+  try {
+    const querySnapshot = await db.collection("usuarios_aprovacao")
+      .where("senha", "==", password)
+      .where("aprovado", "==", true)
+      .get();
 
-      const keys = [
-        { key: "3xTr#9@pLz!Q", accessLevel: 1 },
-        { key: "R7g$1*aY8w%Fn", accessLevel: 2 },
-        { key: "nZ!7@Gq$2pLt#", accessLevel: 3 },
-        { key: "vP#4r@Ls!q8&M", accessLevel: 4 },
-        { key: "L#p93!a@RtZ&9", accessLevel: 5 }
-      ];
+    if (!querySnapshot.empty) {
+      const user = querySnapshot.docs[0].data();
+      localStorage.setItem("accessLevel", user.nivel);
+      window.location.href = "home.html";
+    } else {
+      alert("Acesso negado ou pendente de aprovação.");
+    }
+  } catch (error) {
+    console.error("Erro no login:", error);
+    alert("Erro durante o login.");
+  }
+});
 
-      const userKey = keys.find(k => k.key === password);
-
-      if (userKey) {
-        localStorage.setItem("accessLevel", userKey.accessLevel);
 
         // Coleta os dados
         const enderecoIp = ""; // Obter o IP do cliente é complexo no lado do cliente
