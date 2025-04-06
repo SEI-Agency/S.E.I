@@ -1,3 +1,19 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyAenLhQLq4u6MWBR9xXESm4N7mO0LR5_dY",
+  authDomain: "database---sei.firebaseapp.com",
+  projectId: "database---sei",
+  storageBucket: "database---sei.firebasestorage.app",
+  messagingSenderId: "926818948182",
+  appId: "1:926818948182:web:cc3d207aec8a29b8d7d7f7",
+  measurementId: "G-FRLP6JNXT3"
+};
+
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Inicializa o Firestore
+const db = firebase.firestore();
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("JS carregado com sucesso");
 
