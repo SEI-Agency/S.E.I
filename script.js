@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
- 
+
   async function encrypt4x(password) {
     const encoder = new TextEncoder();
     let data = encoder.encode(password);
@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 4; i++) {
       const hashBuffer = await crypto.subtle.digest("SHA-256", data);
       data = new Uint8Array(hashBuffer);
-      data = new TextEncoder().encode(btoa(String.fromCharCode(...data)));
+      // Convert the hash buffer to a base64 string without extra encoding.
+      data = encoder.encode(btoa(String.fromCharCode(...new Uint8Array(hashBuffer))));
     }
 
     return btoa(String.fromCharCode(...data));
