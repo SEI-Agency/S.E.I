@@ -12,6 +12,21 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* 🎥 Vídeo de fundo estilo hacker */
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+      filter: grayscale(100%) contrast(130%) brightness(80%);
     }
 
     #loading-screen {
@@ -23,7 +38,7 @@
     }
 
     .typing {
-      border-right: 3px solid #4caf50;
+      border-right: 3px solid #be3207;
       white-space: nowrap;
       overflow: hidden;
       font-size: 1.5rem;
@@ -52,7 +67,7 @@
     .bar {
       height: 100%;
       width: 0;
-      background: #4caf50;
+      background: #be3207;
       animation: loadbar 5s linear forwards;
     }
 
@@ -85,13 +100,13 @@
     .identificacao {
       font-size: 1.2rem;
       margin-bottom: 20px;
-      color: #4caf50;
+      color: #be3207;
       background-color: #1a1a1a;
       border: 1px solid #333;
       padding: 15px;
       border-radius: 10px;
       display: inline-block;
-      box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+      box-shadow: 0 0 10px rgba(190, 50, 7, 0.3);
     }
 
     .category {
@@ -102,11 +117,11 @@
       width: 90%;
       max-width: 500px;
       background-color: #1a1a1a;
-      box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 0 10px rgba(190, 50, 7, 0.3);
     }
 
     .category h2 {
-      color: #4caf50;
+      color: #be3207;
       margin-bottom: 15px;
     }
 
@@ -119,7 +134,7 @@
     }
 
     .category a:hover {
-      color: #4caf50;
+      color: #be3207;
     }
 
     #logout {
@@ -136,6 +151,13 @@
   </style>
 </head>
 <body>
+
+  <!-- 🎥 Vídeo hacker no fundo -->
+  <video autoplay muted loop id="background-video">
+    <source src="background.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo HTML5.
+  </video>
+
   <div id="loading-screen">
     <div class="typing">Carregando Banco De Dados...</div>
     <div class="progress-bar"><div class="bar"></div></div>
@@ -149,10 +171,9 @@
     </div>
 
     <div id="identificacao" class="identificacao"></div>
-
     <div id="content"></div>
 
-    <a href="#" id="logout"> Sair</a>
+    <a href="#" id="logout">⛔ Sair</a>
   </div>
 
   <script>
@@ -163,7 +184,6 @@
       const idDisplay = document.getElementById("identificacao");
       const logoutBtn = document.getElementById("logout");
 
-     
       setTimeout(() => {
         loadingScreen.style.display = "none";
         mainContent.style.display = "block";
@@ -175,10 +195,8 @@
           return;
         }
 
-        
         idDisplay.textContent = `Bem-vindo, Agente. Nível de Identificação: ${level}`;
 
-        
         if (level >= 1) {
           const docs = document.createElement("div");
           docs.className = "category";
@@ -211,7 +229,6 @@
 
       }, 5000);
 
-      // Logout
       logoutBtn.addEventListener("click", () => {
         localStorage.removeItem("accessLevel");
         window.location.href = "index.html";
