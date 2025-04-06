@@ -1,3 +1,25 @@
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("JS carregado com sucesso");
+
+  const loginForm = document.getElementById("loginForm");
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Impede o refresh da página
+    console.log("Formulário enviado"); // Teste se está funcionando
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    console.log("Usuário digitado:", username);
+    console.log("Senha digitada:", password);
+
+    // Aqui vai seu código de validação com Firestore...
+    // Depois da validação:
+    window.location.href = "home.html"; // Se login for válido
+  });
+});
+
+
 loginForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
