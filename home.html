@@ -145,6 +145,15 @@
     .top-right   { top: 100px; right: 30px; }
     .bottom-left { bottom: 100px; left: 30px; }
     .bottom-right{ bottom: 100px; right: 30px; }
+
+    .frase-container {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #aaa;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
   </style>
 </head>
 <body>
@@ -171,6 +180,8 @@
     <div class="category top-right" id="cat2" style="display:none;"></div>
     <div class="category bottom-left" id="cat3" style="display:none;"></div>
 
+    <div class="frase-container" id="frase-container"></div>
+
     <a href="#" id="logout">⛔ Sair</a>
   </div>
 
@@ -183,29 +194,30 @@
       "Autorização confirmada. Canal seguro."
     ];
 
-    function mostrarFrases() {
-      const mottoEl = document.getElementById("motto");
+    function rotacionarFrases(idElemento) {
+      const el = document.getElementById(idElemento);
       let i = 0;
 
-      const trocarFrase = () => {
-        mottoEl.style.opacity = 0;
+      const trocar = () => {
+        el.style.opacity = 0;
         setTimeout(() => {
-          mottoEl.textContent = frases[i];
-          mottoEl.style.opacity = 1;
+          el.textContent = frases[i];
+          el.style.opacity = 1;
           i = (i + 1) % frases.length;
         }, 1500);
       };
 
-      trocarFrase();
-      setInterval(trocarFrase, 4000);
+      trocar();
+      setInterval(trocar, 4000);
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-      mostrarFrases();
+      rotacionarFrases("motto");
 
       setTimeout(() => {
         document.getElementById("loading-screen").style.display = "none";
         document.getElementById("main-content").style.display = "block";
+        rotacionarFrases("frase-container");
 
         const level = parseInt(localStorage.getItem("accessLevel"));
         if (!level) {
