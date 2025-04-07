@@ -11,11 +11,9 @@
       font-family: 'Courier New', Courier, monospace;
       margin: 0;
       padding: 0;
-      text-align: center;
       overflow-x: hidden;
     }
 
-    /* 🖼️ GIF de fundo estilo hacker */
     #background-gif {
       position: fixed;
       top: 0;
@@ -24,7 +22,7 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-      opacity: 0.07;
+      opacity: 0.05;
       pointer-events: none;
     }
 
@@ -34,45 +32,37 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      text-align: center;
     }
 
-    .typing {
-      border-right: 3px solid #be3207;
-      white-space: nowrap;
-      overflow: hidden;
+    .motto {
       font-size: 1.5rem;
-      width: 0;
-      animation: typing 5s steps(50, end) forwards, blink 0.75s step-end infinite;
+      margin: 20px 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      max-width: 80%;
     }
 
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
+    .progress-container {
+      width: 60%;
+      background: #222;
+      border: 2px solid #be3207;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 30px;
+      box-shadow: 0 0 10px rgba(190, 50, 7, 0.3);
     }
 
     .progress-bar {
-      width: 80%;
-      background: #333;
       height: 20px;
-      margin-top: 30px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .bar {
-      height: 100%;
       width: 0;
-      background: #be3207;
-      animation: loadbar 5s linear forwards;
+      background: linear-gradient(90deg, #be3207, #ff5500);
+      animation: loadbar 5s forwards;
     }
 
     @keyframes loadbar {
-      from { width: 0; }
-      to { width: 100%; }
+      0% { width: 0; }
+      100% { width: 100%; }
     }
 
     #main-content {
@@ -81,55 +71,57 @@
     }
 
     .header {
+      text-align: center;
       margin-bottom: 20px;
     }
 
     .header img {
       width: 100px;
-      margin-bottom: 10px;
     }
 
     .slogan {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #888;
       margin-top: -10px;
-      margin-bottom: 30px;
     }
 
     .identificacao {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
       color: #be3207;
       background-color: #1a1a1a;
-      border: 1px solid #333;
-      padding: 15px;
+      padding: 10px;
       border-radius: 10px;
-      display: inline-block;
-      box-shadow: 0 0 10px rgba(190, 50, 7, 0.3);
+      border: 1px solid #333;
     }
 
     .category {
-      border: 1px solid #444;
-      border-radius: 8px;
-      margin: 20px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
+      position: absolute;
+      width: 250px;
       background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(190, 50, 7, 0.3);
+      padding: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .category:hover {
+      transform: scale(1.02);
     }
 
     .category h2 {
       color: #be3207;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .category a {
+      color: white;
+      text-decoration: none;
       display: block;
       margin: 5px 0;
-      color: white;
       font-weight: bold;
-      text-decoration: none;
     }
 
     .category a:hover {
@@ -137,9 +129,10 @@
     }
 
     #logout {
-      margin-top: 30px;
+      display: block;
+      text-align: center;
+      margin-top: 40px;
       color: red;
-      display: inline-block;
       font-weight: bold;
       text-decoration: none;
     }
@@ -147,42 +140,72 @@
     #logout:hover {
       text-decoration: underline;
     }
+
+    .top-left    { top: 100px; left: 30px; }
+    .top-right   { top: 100px; right: 30px; }
+    .bottom-left { bottom: 100px; left: 30px; }
+    .bottom-right{ bottom: 100px; right: 30px; }
   </style>
 </head>
 <body>
 
-  
   <img id="background-gif" src="https://media.tenor.com/ZyoHe3Fs-0wAAAAd/hacking-hacker.gif" alt="bg" />
 
   <div id="loading-screen">
-    <div class="typing">Carregando Banco De Dados...</div>
-    <div class="progress-bar"><div class="bar"></div></div>
+    <div class="motto" id="motto">Iniciando protocolo de segurança...</div>
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
   </div>
 
   <div id="main-content">
     <div class="header">
       <img src="agencia.png" alt="S.E.I." />
       <h1>S.E.I. — Serviço Estratégico de Inteligência</h1>
-      <p class="slogan">"Nós observamos. Nós decidimos. O conhecimento é o nosso escudo."</p>
+      <p class="slogan">"O conhecimento é o nosso escudo."</p>
     </div>
 
     <div id="identificacao" class="identificacao"></div>
-    <div id="content"></div>
+
+    <div class="category top-left" id="cat1" style="display:none;"></div>
+    <div class="category top-right" id="cat2" style="display:none;"></div>
+    <div class="category bottom-left" id="cat3" style="display:none;"></div>
 
     <a href="#" id="logout">⛔ Sair</a>
   </div>
 
   <script>
+    const frases = [
+      "Observamos. Analisamos. Neutralizamos.",
+      "Nada escapa aos olhos da S.E.I.",
+      "Confidencialidade não é uma opção, é a base.",
+      "O silêncio protege, a informação decide.",
+      "Autorização confirmada. Canal seguro."
+    ];
+
+    function mostrarFrases() {
+      const mottoEl = document.getElementById("motto");
+      let i = 0;
+
+      const trocarFrase = () => {
+        mottoEl.style.opacity = 0;
+        setTimeout(() => {
+          mottoEl.textContent = frases[i];
+          mottoEl.style.opacity = 1;
+          i = (i + 1) % frases.length;
+        }, 1500);
+      };
+
+      trocarFrase();
+      setInterval(trocarFrase, 4000);
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
-      const loadingScreen = document.getElementById("loading-screen");
-      const mainContent = document.getElementById("main-content");
-      const contentDiv = document.getElementById("content");
-      const idDisplay = document.getElementById("identificacao");
-      const logoutBtn = document.getElementById("logout");
+      mostrarFrases();
 
       setTimeout(() => {
-        loadingScreen.style.display = "none";
-        mainContent.style.display = "block";
+        document.getElementById("loading-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
 
         const level = parseInt(localStorage.getItem("accessLevel"));
         if (!level) {
@@ -191,41 +214,35 @@
           return;
         }
 
-        idDisplay.textContent = `Bem-vindo, Agente. Nível de Identificação: ${level}`;
+        document.getElementById("identificacao").textContent = `Acesso concedido. Identificação nível ${level}`;
 
         if (level >= 1) {
-          const docs = document.createElement("div");
-          docs.className = "category";
-          docs.innerHTML = `
+          document.getElementById("cat1").style.display = "block";
+          document.getElementById("cat1").innerHTML = `
             <h2>📁 Documentos</h2>
-            <a href="documentos.html">▶ Acesso aos Arquivos</a>
+            <a href="documentos.html">▶ Arquivos Sigilosos</a>
           `;
-          contentDiv.appendChild(docs);
         }
 
         if (level >= 2) {
-          const alvos = document.createElement("div");
-          alvos.className = "category";
-          alvos.innerHTML = `
-            <h2>🎯 Alvos Prioritários</h2>
-            <a href="alvos.html">▶ Lista de Alvos</a>
+          document.getElementById("cat2").style.display = "block";
+          document.getElementById("cat2").innerHTML = `
+            <h2>🎯 Alvos</h2>
+            <a href="alvos.html">▶ Prioridades Estratégicas</a>
           `;
-          contentDiv.appendChild(alvos);
         }
 
         if (level >= 5) {
-          const core = document.createElement("div");
-          core.className = "category";
-          core.innerHTML = `
+          document.getElementById("cat3").style.display = "block";
+          document.getElementById("cat3").innerHTML = `
             <h2>🧠 Núcleo Central</h2>
-            <a href="core.html">▶ Dados Classificados</a>
+            <a href="core.html">▶ Inteligência Classificada</a>
           `;
-          contentDiv.appendChild(core);
         }
 
       }, 5000);
 
-      logoutBtn.addEventListener("click", () => {
+      document.getElementById("logout").addEventListener("click", () => {
         localStorage.removeItem("accessLevel");
         window.location.href = "index.html";
       });
