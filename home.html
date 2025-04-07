@@ -154,6 +154,7 @@
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
+
   </style>
 </head>
 <body>
@@ -179,6 +180,7 @@
     <div class="category top-left" id="cat1" style="display:none;"></div>
     <div class="category top-right" id="cat2" style="display:none;"></div>
     <div class="category bottom-left" id="cat3" style="display:none;"></div>
+    <div class="category bottom-right" id="cat4" style="display:none;"></div>
 
     <div class="frase-container" id="frase-container"></div>
 
@@ -249,6 +251,14 @@
           document.getElementById("cat3").innerHTML = `
             <h2>🧠 Núcleo Central</h2>
             <a href="core.html">▶ Inteligência Classificada</a>
+          `;
+        }
+
+        if (level >= 4) {
+          document.getElementById("cat4").style.display = "block";
+          document.getElementById("cat4").innerHTML = `
+            <h2>🗣️ Fórum</h2>
+            <a href="forum.html">▶ Discussões Estratégicas</a>
           `;
         }
 
